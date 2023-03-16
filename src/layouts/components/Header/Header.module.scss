@@ -1,0 +1,45 @@
+.wrapper {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  box-shadow: 0px 1px 1px rgb(0 0 0 /12%);
+  background-color: #fff;
+}
+.inner {
+  height: 100%;
+  width: 1200px;
+  display: flex;
+  align-items: center;
+}
+.logo {
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+.menu {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+//!navbar-feature
+.navbar-feature {
+  font-size: 1.8rem;
+  font-weight: 700;
+  .item{
+    padding: 0px 10px;
+  }
+}
+
+//!navbar-personal
+.navbar-personal {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
