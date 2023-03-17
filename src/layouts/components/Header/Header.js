@@ -45,7 +45,8 @@ function Header() {
               <Fragment>
                 <div className="username">MinhThanh</div>
                 <Image
-                  src="htttps://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-1/333794981_573345321494830_6626873759492579978_n.jpg?stp=dst-jpg_p200x200&_nc_cat=108&ccb=1-7&_nc_sid=7206a8&_nc_ohc=ouZHGSu_hnMAX-UNEWR&_nc_ht=scontent.fsgn5-6.fna&oh=00_AfBEh8V0RoqnP3q-XI9pKvtV2JM2yfdiiHRHVWKL2Hkf0Q&oe=6417FB7C"
+                  className={cx("user-avatar")}
+                  src="https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-1/333794981_573345321494830_6626873759492579978_n.jpg?stp=dst-jpg_p200x200&_nc_cat=108&ccb=1-7&_nc_sid=7206a8&_nc_ohc=ouZHGSu_hnMAX-UNEWR&_nc_ht=scontent.fsgn5-6.fna&oh=00_AfBEh8V0RoqnP3q-XI9pKvtV2JM2yfdiiHRHVWKL2Hkf0Q&oe=6417FB7C"
                   alt="Avatar"
                 />
                 {/* Continue Here */}
