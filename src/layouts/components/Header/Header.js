@@ -15,7 +15,7 @@ function Header() {
     <header className={cx("wrapper")}>
       <div className={cx("inner")}>
         <Link to="/" className={cx("logo")} tabIndex="-1">
-          <img src="/LogoSVG.svg" alt="Logo Alien SVG" />
+          <Image src="/LogoSVG.svg" alt="Logo Alien SVG" />
         </Link>
         <div className={cx("menu")}>
           <nav className={cx("navbar-feature")}>

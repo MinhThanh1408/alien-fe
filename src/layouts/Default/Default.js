@@ -11,9 +11,9 @@ function Default({ children }) {
     <div className={cx("wrapper")}>
       <Header />
       <div className={cx("container")}>
-        <div className="content">Content Comming soon</div>
+        <div className="content">{children}</div>
       </div>
-      {children}
+
       <Footer />
     </div>
   );

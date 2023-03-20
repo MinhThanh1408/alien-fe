@@ -15,6 +15,7 @@ function Button({
   small = false,
   large = false,
   children,
+  className,
   leftIcon,
   rightIcon,
   onClick,
@@ -42,6 +43,7 @@ function Button({
   }
 
   const classes = cx("wrapper", {
+    [className]: className,
     primary,
     outline,
     disabled,
@@ -65,7 +67,8 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   small: PropTypes.bool,
   large: PropTypes.bool,
-  children: PropTypes.bool,
+  children: PropTypes.node,
+  className: PropTypes.string,
   leftIcon: PropTypes.node,
   rightRight: PropTypes.node,
   onClick: PropTypes.func,
