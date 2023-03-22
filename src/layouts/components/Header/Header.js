@@ -10,7 +10,7 @@ import Image from "src/components/Image";
 const cx = classNames.bind(styles);
 
 function Header() {
-  const currentUser = true;
+  const currentUser = false;
   return (
     <header className={cx("wrapper")}>
       <div className={cx("inner")}>
