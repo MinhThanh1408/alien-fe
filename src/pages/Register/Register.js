@@ -45,7 +45,7 @@ function Register() {
     setConfirmPassword("");
   };
 
-  const handleSaveToStorage = (key, value) => {
+  const handleSetLocalStorage = (key, value) => {
     const jsonValue = JSON.stringify(value);
     localStorage.setItem(key, jsonValue);
   };
@@ -55,7 +55,7 @@ function Register() {
     const isValid = handleValidators();
     if (!isValid) return;
 
-    handleSaveToStorage("account", { username, password, confirmPassword });
+    handleSetLocalStorage("account", { username, password, confirmPassword });
     handleClearContent();
     console.log("Submit");
   };

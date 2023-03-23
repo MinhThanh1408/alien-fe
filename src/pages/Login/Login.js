@@ -10,21 +10,45 @@ import { useState } from "react";
 const cx = classNames.bind(styles);
 
 function Login() {
-  const [hideNotify, setHideNotify] = useState(true);
+  const [notify, setNotify] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setHideNotify(false);
+    const isValid = handleValidator();
+    console.log(username, password, isValid);
+    setNotify(!isValid);
+
+    if (isValid) {
+      alert(username);
+      // Handle after login success
+    }
+  };
+  const handleValidator = () => {
+    const account = handleGetLocalStorage("account");
+    if (
+      username.trim() === account.username &&
+      password.trim() === account.password
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const handleGetLocalStorage = (key) => {
+    return JSON.parse(localStorage.getItem(key));
   };
 
   const handleCloseNotify = () => {
-    setHideNotify(true);
+    setNotify(false);
   };
+
   return (
     <div className={cx("wrapper")}>
       <Image className={cx("logo")} src="/LogoSVG.svg" alt="Logo Alien SVG" />
       <h2 className={cx("welcome")}>Sign in to Alien</h2>
-      {!hideNotify && (
+      {notify && (
         <div className={cx("notify")}>
           <span>Incorrect username or password.</span>
           <IoCloseOutline
@@ -41,7 +65,13 @@ function Login() {
               Username or email address
             </label>
           </div>
-          <input id="username" type="text" className={cx("input")} />
+          <input
+            id="username"
+            type="text"
+            className={cx("input")}
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+          />
         </div>
         <div className={cx("form-group")}>
           <div className={cx("wrap-label")}>
@@ -50,7 +80,13 @@ function Login() {
             </label>
             <Link className={cx("forgot")}>Forgot password?</Link>
           </div>
-          <input className={cx("input")} id="password" type="text" />
+          <input
+            className={cx("input")}
+            id="password"
+            type="text"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
         </div>
         <Button primary className={cx("submit")} onClick={handleSubmit}>
           Sign in
