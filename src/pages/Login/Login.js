@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import { IoCloseOutline } from "react-icons/io5";
+import axios from "axios";
 
 import styles from "./Login.module.scss";
 import Image from "src/components/Image";
@@ -22,7 +23,9 @@ function Login() {
 
     if (isValid) {
       alert(username);
-      // Handle after login success
+      axios.get("http://localhost:3001/api/account").then((res) => {
+        console.log(res.data);
+      });
     }
   };
   const handleValidator = () => {
@@ -78,7 +81,9 @@ function Login() {
             <label className={cx("label")} htmlFor="password">
               Password
             </label>
-            <Link className={cx("forgot")}>Forgot password?</Link>
+            <Link className={cx("forgot")} tabIndex={-1}>
+              Forgot password?
+            </Link>
           </div>
           <input
             className={cx("input")}

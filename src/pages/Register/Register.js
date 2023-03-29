@@ -5,6 +5,7 @@ import validator from "validator";
 import styles from "./Register.module.scss";
 import Image from "src/components/Image";
 import Button from "src/components/Button";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -45,9 +46,35 @@ function Register() {
     setConfirmPassword("");
   };
 
-  const handleSetLocalStorage = (key, value) => {
-    const jsonValue = JSON.stringify(value);
-    localStorage.setItem(key, jsonValue);
+  // const handleSetLocalStorage = (key, value) => {
+  //   const jsonValue = JSON.stringify(value);
+  //   localStorage.setItem(key, jsonValue);
+  // };
+  const handleRegister = () => {
+    axios
+      .post(
+        "http://localhost:3001/api/account",
+        {
+          data: {
+            username,
+            password,
+          },
+        },
+        { headers: { "content-type": "application/x-www-form-urlencoded" } }
+      )
+      .then((res) => {
+        console.log("Register success");
+        handleClearContent();
+      })
+      .catch((err) => {
+        console.log("Register fail");
+        const _error = {
+          username: "Already exists",
+          password: "",
+          confirmPassword: "",
+        };
+        setError(_error);
+      });
   };
 
   const handleSubmit = (e) => {
@@ -55,8 +82,7 @@ function Register() {
     const isValid = handleValidators();
     if (!isValid) return;
 
-    handleSetLocalStorage("account", { username, password, confirmPassword });
-    handleClearContent();
+    handleRegister();
     console.log("Submit");
   };
 
@@ -76,7 +102,7 @@ function Register() {
             name="username"
             type="text"
             className={cx("input")}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value.trim())}
             value={username}
           />
           {error.username && (
@@ -94,7 +120,7 @@ function Register() {
             id="password"
             name="password"
             type="text"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value.trim())}
             value={password}
           />
           {error.password && (
@@ -112,7 +138,7 @@ function Register() {
             id="confirmPassword"
             name="confirmPassword"
             type="text"
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={(e) => setConfirmPassword(e.target.value.trim())}
             value={confirmPassword}
           />
           {error.confirmPassword && (
