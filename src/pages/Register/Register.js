@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import { useState } from "react";
 import validator from "validator";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./Register.module.scss";
 import Image from "src/components/Image";
@@ -18,6 +19,7 @@ function Register() {
     password: false,
     confirmPassword: false,
   });
+  const navigate = useNavigate();
 
   const handleValidators = () => {
     const _error = {};
@@ -40,20 +42,10 @@ function Register() {
     }
     return true;
   };
-  const handleClearContent = () => {
-    setUsername("");
-    setPassword("");
-    setConfirmPassword("");
-  };
-
-  // const handleSetLocalStorage = (key, value) => {
-  //   const jsonValue = JSON.stringify(value);
-  //   localStorage.setItem(key, jsonValue);
-  // };
   const handleRegister = () => {
     axios
       .post(
-        "http://localhost:3001/api/account",
+        "http://localhost:3001/api/account/register",
         {
           data: {
             username,
@@ -64,10 +56,10 @@ function Register() {
       )
       .then((res) => {
         console.log("Register success");
-        handleClearContent();
+        navigate("/login");
       })
       .catch((err) => {
-        console.log("Register fail");
+        console.log("Register failed");
         const _error = {
           username: "Already exists",
           password: "",

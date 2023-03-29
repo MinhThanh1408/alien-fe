@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import { IoCloseOutline } from "react-icons/io5";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./Login.module.scss";
 import Image from "src/components/Image";
@@ -14,37 +15,35 @@ function Login() {
   const [notify, setNotify] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const isValid = handleValidator();
-    console.log(username, password, isValid);
-    setNotify(!isValid);
-
-    if (isValid) {
-      alert(username);
-      axios.get("http://localhost:3001/api/account").then((res) => {
-        console.log(res.data);
-      });
-    }
-  };
-  const handleValidator = () => {
-    const account = handleGetLocalStorage("account");
-    if (
-      username.trim() === account.username &&
-      password.trim() === account.password
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  const handleGetLocalStorage = (key) => {
-    return JSON.parse(localStorage.getItem(key));
+    handleLogin();
   };
 
   const handleCloseNotify = () => {
     setNotify(false);
+  };
+
+  const handleLogin = () => {
+    axios
+      .post(
+        "http://localhost:3001/api/account/login",
+        {
+          data: {
+            username,
+            password,
+          },
+        },
+        { headers: { "content-type": "application/x-www-form-urlencoded" } }
+      )
+      .then((res) => {
+        navigate("/home");
+      })
+      .catch((err) => {
+        setNotify(true);
+      });
   };
 
   return (
@@ -72,7 +71,7 @@ function Login() {
             id="username"
             type="text"
             className={cx("input")}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value.trim())}
             value={username}
           />
         </div>
@@ -89,7 +88,7 @@ function Login() {
             className={cx("input")}
             id="password"
             type="text"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value.trim())}
             value={password}
           />
         </div>
